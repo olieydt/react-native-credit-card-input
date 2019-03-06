@@ -1,5 +1,5 @@
 import valid from "card-validator";
-import { removeNonNumber, removeLeadingSpaces, removeNonAlphaNum } from "./Utilities";
+import { removeNonNumber, removeLeadingSpaces, removeNonAlphaNum, removeNonAlpha } from "./Utilities";
 import pick from "lodash.pick";
 
 const limitLength = (string = "", maxLength) => string.substr(0, maxLength);
@@ -27,7 +27,7 @@ export default class CCFieldFormatter {
       number: this._formatNumber(values.number, card),
       expiry: this._formatExpiry(values.expiry),
       cvc: this._formatCVC(values.cvc, card),
-      name: removeLeadingSpaces(values.name),
+      name: removeNonAlpha(removeLeadingSpaces(values.name)),
       postalCode: removeNonAlphaNum(values.postalCode),
     }, this._displayedFields);
   };
